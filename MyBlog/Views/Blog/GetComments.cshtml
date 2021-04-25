@@ -1,0 +1,99 @@
+﻿@model List<Model.ModelView.CommentAndUser>
+
+
+@if (Model != null)
+{
+    foreach (var item in Model.Where(x => x.parentID == null))
+    {
+        var child = Model.Where(x => x.parentID == item.CommentID);
+        //var parentClass = child.Count() > 0 ? "class=" : "";
+
+        <div class="media">
+            <a class="pull-left">
+                <div class="hover01 column">
+                    <div>
+                        <figure><img class="media-object" src="@item.Avatar" alt=""></figure>
+                    </div>
+                </div>
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    @item.UserName
+                    <small>Đã bình luận @item.CreatedDate</small>
+                </h4>
+                <p class="blogpost-agileits">@item.Content</p>
+            </div>
+            @if (child.Count() > 0)
+            {
+                foreach (var chilItem in child)
+                {
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <div class="hover01 column">
+                                <div>
+                                    <figure><img class="media-object" src="@chilItem.Avatar" alt=""></figure>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                @chilItem.UserName
+                                <small>@chilItem.CreatedDate</small>
+                            </h4>
+                            <p class="blogpost-agileits">@chilItem.Content</p>
+                        </div>
+                    </div>
+                }
+            }
+
+            <!-- Capcha-->
+
+        </div>
+
+    }
+
+}
+
+
+<!-- Blog Comments -->
+<!-- Form Reply Comment -->
+<!-- JS get form subcomment
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        //Add Reply Comment
+        $('.ReplyAddComment').on('click', function () {
+
+            var ComID = $(this).attr('data-id');
+
+            var subComment = {
+                CommentMsg: CommentMsg,
+                CommentedDate: dateTimeNow.toLocaleString()
+            };
+
+
+            $.ajax({
+
+                type: 'POST',
+                url: 'Url.Action("AddSubComment", "Blog")',
+                data: { subComment, ComID },
+                success: function (response) {
+
+
+                },
+                error: function (response) {
+                    alert('something Wrong');
+                }
+            });
+
+        });
+
+        jQuery("time.timeago").timeago();
+
+
+    })
+</script>
+
+ -->

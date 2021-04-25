@@ -1,0 +1,27 @@
+﻿@model List<Model.EF.Menu>
+@{  var subMenu = (List<Model.EF.Category>)ViewBag.SubMenu;
+}
+
+
+@foreach (var item in Model)
+{
+
+
+    if (item.Text.ToString() == "Blog")
+    {
+        <li class="dropdown">
+            <a href="@item.Link" target="@item.Target" class="dropdown-toggle" data-toggle="dropdown">@item.Text</a>
+            <ul class="dropdown-menu">
+                <li><a href="/blog">Tất cả Blog</a></li>
+                @foreach (var menu in subMenu)
+                {
+                    <li><a href="/category/@menu.MetaTitle-@menu.ID">@menu.Title</a></li>
+                }
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@item.Link" target="@item.Target">@item.Text</a></li>
+    }
+}

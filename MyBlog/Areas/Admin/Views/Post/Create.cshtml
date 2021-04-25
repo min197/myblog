@@ -1,0 +1,120 @@
+﻿@model Model.EF.Post
+
+@{
+    ViewBag.Title = "Create Post";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+    var listCategoryPost = (List<Model.EF.Category>)ViewBag.ListCategoryPost;
+    var listPost = (List<Model.EF.Post>)ViewBag.ListPost;
+
+}
+
+@if (TempData["ErrorCreate"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorCreate"].ToString()</div>
+}
+
+
+@section jsFooter{
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var editor_1 = CKEDITOR.replace('txtContent');
+        CKFinder.setupCKEditor(editor_1);
+    });
+
+    $('#btnSelectImage').on('click', function (e) {
+        e.preventDefault();
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#txtImage').val(url);
+        };
+        finder.popup();
+    })
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var editor_2 = CKEDITOR.replace('txtPublished');
+            CKFinder.setupCKEditor(editor_2);
+        });
+</script>
+ }
+
+
+@using (Html.BeginForm("Create","Post",FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Post</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.parentID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.parentID, new SelectList(listPost, "ID", "Title"), htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.parentID, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.CategoryID, new SelectList (listCategoryPost, "ID", "Title"), htmlAttributes: new {@class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.TextBoxFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MetaTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            
+                @Html.TextBoxFor(model => model.PostImage, new { htmlAttributes = new { @class = "form-control" , @id = "txtImage"}, id="txtImage" })
+                <a id="btnSelectImage" href="#">Chọn ảnh</a>
+                @Html.ValidationMessageFor(model => model.PostImage, "", new { @class = "text-danger" })
+           
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })   
+                @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" }, id ="txtContent"})
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+         
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.TextAreaFor(model => model.Published, new { htmlAttributes = new { @class = "form-control" }, id ="txtPublished"})
+            @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+            
+                    @Html.CheckBoxFor(model => model.Status)
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

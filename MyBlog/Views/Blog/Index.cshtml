@@ -1,0 +1,169 @@
+﻿@model PagedList.IPagedList<Model.EF.Post>
+
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Blog Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listNewPost = (List<Model.EF.Post>)ViewBag.NewPost;
+    var listHotPost = (List<Model.EF.Post>)ViewBag.NewPost;
+    var listCategory = (List<Model.EF.Category>)ViewBag.getCategory;
+    var listAllTag = (List<Model.EF.Tag>)ViewBag.ListAllTag;
+}
+
+
+<section class="blog-w3ls">
+    <div class="container">
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header text-center">Blog</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/Home/Index">Home</a>
+                    </li>
+                    <li class="active">Blog</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                @if (TempData["MessageError"] != null)
+                {
+                    <div class="alert alert-danger"> <h4>@TempData["MessageError"].ToString()  </h4></div>
+                }
+
+                @if (TempData["MessageSuccess"] != null)
+                {
+                    <div class="alert alert-success"><h4>@TempData["MessageSuccess"].ToString()</h4></div>
+                }
+                <!-- First Blog Post -->
+                @foreach (var item in Model)
+                {
+                    <h3><a href="/blog/@item.MetaTitle-@item.ID">@item.Title</a></h3>
+                    <p class="lead">by <a href="/gioi-thieu/user-@item.AuthorID">@item.AuthorName</a></p>
+                    <p class="blogpost-w3ls">
+                        <i class="fa fa-clock-o">Posted on @item.DatePublished.ToString()</i>
+                        <i class="fas fa-eye">@item.CountRead.ToString()</i>
+                    </p>
+                    <hr>
+                    <a href="/blog/@item.MetaTitle-@item.ID">
+                        <div class="hover01 column">
+                            <div>
+                                <a href="/blog/@item.MetaTitle-@item.ID"> <figure><img class="img-responsive img-hover" src="@item.PostImage" alt=""></figure></a>
+                            </div>
+                        </div>
+                    </a>
+                    <hr>
+                    <p class="blog-agile2">@Html.Raw(@item.Published)</p>
+                    <a class="btn btn-primary" href="/blog/@item.MetaTitle-@item.ID">Read More <i class="fa fa-angle-right"></i></a>
+                    <hr>
+                }
+
+
+                <!-- Pager -->
+                <h3>@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))</h3>
+
+            </div>
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4">
+                <section class="blogwell-w3ls">
+                    <!-- Blog Search Well -->
+                    <div class="well">
+                        <h4>Blog Search</h4>
+                        @using (Html.BeginForm("Index", "Blog", FormMethod.Get))
+                        {
+                            <div class="input-group">
+                                <input type="text" class="form-control" value="@ViewBag.SearchString" name="searchString" placeholder="Search" required />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+
+                        }
+                    </div>
+                    <!-- Blog Categories Well -->
+                    <div class="well">
+                        <h4>Blog Categories</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled">
+                                    @foreach (var item in listCategory)
+                                    {
+                                        <li><a href="/category/@item.MetaTitle-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- Side Widget Well -->
+                    <div class="well">
+                        <h4>New Blog:</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled">
+                                    @foreach (var item in listNewPost)
+                                    {
+
+                                        <li><a href="/blog/@item.MetaTitle-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
+                                    }
+
+
+                                </ul>
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+
+                    <div class="well">
+                        <h4>Hot Blog:</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled">
+                                    @foreach (var item in listHotPost)
+                                    {
+                                        <li><a href="/blog/@item.MetaTitle-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
+                                    }
+
+
+                                </ul>
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+
+                    <div class="well">
+                        <h4>Tag:</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                    <ul>
+                                    @foreach (var item in listAllTag)
+                                    {
+
+                                        <li><a href="/blog/tag/@item.MetaTitle-@item.ID" class="badge badge-primary">@item.Title</a></li>
+          
+                                    }
+                                </ul>
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- Side Widget Well -->
+
+                </section>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+    </div>
+    <!-- /.container -->
+</section>	

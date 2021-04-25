@@ -1,0 +1,155 @@
+﻿@model PagedList.IPagedList<Model.EF.User>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Manage User";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"].ToString()</div>
+}
+
+@section header{
+    Danh sách người dùng
+}
+
+@section jsFooter{
+<script src="/assets/admin/js/controller/userController.js"></script>
+  }
+<div class="row">
+    <div class="col-sm-12">
+       <div class="panel panel-default">
+           <div class="panel-heading">
+               @using (Html.BeginForm("Index", "User", FormMethod.Get))
+               {
+                   <div class="row form-group">
+                       <div class="col-lg-12">
+                           <div class="col-md-4">
+                               <input type="text" value="@ViewBag.SearchString" class="form-control" name="searchString" />
+                           </div>
+                           <div class="col-md-4">
+                               <button type="submit" class="btn-success">Tìm kiếm</button>
+                           </div>
+
+                       </div>
+                   </div>
+
+               }
+               @using (Html.BeginForm("Create", "User", FormMethod.Get))
+               {
+                   <div class="row form-group">
+                       <div class="col-lg-12">
+                           <div class="col-md-4">
+                               <button type="submit" class="btn-primary">Tạo mới</button>
+                           </div>
+                       </div>
+                   </div>
+               }
+
+           </div>
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>UserName</th>s
+                                <th>Avatar</th>
+                                <th>Type Id</th>
+                                <th>First Name</th>
+                                <th>Mid Name</th>
+                                <th>Last Name</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Adress</th>
+                                <th>JobTitle</th>
+                                <th>About</th>
+                                <th>Facebook</th>
+                                <th>Instagram</th>
+                                <th>Twitter</th>
+                                <th>Youtube</th>
+                                <th>Created Date</th>
+                                <th>Created By</th>
+                                <th>Last Login</th>
+                                <th>Profile</th>
+                                <th>Modified Date</th>
+                                <th>Modified By</th>
+                                <th>Status</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>UserName</th>
+                                <th>Avatar</th>
+                                <th>Type Id</th>
+                                <th>First Name</th>
+                                <th>Mid Name</th>
+                                <th>Last Name</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Adress</th>
+                                <th>JobTitle</th>
+                                <th>About</th>
+                                <th>Facebook</th>
+                                <th>Instagram</th>
+                                <th>Twitter</th>
+                                <th>Youtube</th>
+                                <th>Created Date</th>
+                                <th>Created By</th>
+                                <th>Last Login</th>
+                                <th>Profile</th>
+                                <th>Modified Date</th>
+                                <th>Modified By</th>
+                                <th>Status</th>
+                                <th>Manage</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.ID">
+                                    <td>@item.UserName</td>
+                                    <td>@item.Avatar</td>
+                                    <td>@item.TypeUserId</td>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.MidName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.Mobile</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Adress</td>
+                                    <td>@item.JobTitle</td>
+                                    <td>@item.About</td>
+                                    <td>@item.LinkToFacebook</td>
+                                    <td>@item.LinkToInstagram</td>
+                                    <td>@item.LinkToTwitter</td>
+                                    <td>@item.LinkToYoutube</td>
+                                    <td>@item.CreatedDate</td>
+                                    <td>@item.CreatedBy</td>
+                                    <td>@item.LastLogin</td>
+                                    <td>@Html.Raw(@item.Profile)</td>
+                                    <td>@item.ModifiedDate</td>
+                                    <td>@item.ModifiedBy</td>
+                                    <td><a href="#" class="btn-block" data-id="@item.ID">@(item.Status ? "is actived" : "is blocked")</a> </td>
+                                    <td>
+                                        <a href="/Admin/User/Edit/@item.ID">Edit</a>
+                                        @Ajax.ActionLink("Delete", "Delete", new { @id = @item.ID }, new AjaxOptions
+                                  {
+                                      Confirm = "Do you really want to delete?",
+                                      OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                      HttpMethod = "Delete"
+                                  })
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@model Model.EF.PostTag
+
+@{
+    ViewBag.Title = "CreatePostTag";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+    var listPost = (List<Model.EF.Post>)ViewBag.ListPost;
+    var listTag = (List<Model.EF.Tag>)ViewBag.ListTag;
+}
+
+<h2>Create PostTag</h2>
+
+@using (Html.BeginForm("Create", "PostTag", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>PostTag</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.PostID, new SelectList(listPost, "ID", "Title"), htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TagID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.TagID, new SelectList(listTag, "ID", "Title"), htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TagID, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.Status)
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

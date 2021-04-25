@@ -1,0 +1,29 @@
+﻿@model List<Model.EF.Slide>
+
+<ul class="slider">
+    @foreach (var item in Model)
+    {
+        <li class="slide">
+            <div class="slide-bg">
+                <img src="@item.Image" alt="image-slide-id-@item.ID" draggable="false">
+            </div>
+            <div class="slide-content">
+                <h3>@item.Title</h3>
+                @Html.Raw(@item.Descriptions)
+                <a href="@item.Link">Read More</a>
+            </div>
+        </li>
+    }
+</ul>
+<div class="slider-controls">
+    <div class="slide-nav">
+        <a href="#" class="prev"><img src="/assets/client/images/prev.png" alt="prev_button"></a>
+        <a href="#" class="next"><img src="/assets/client/images/next.png" alt="next_button"></a>
+    </div>
+    <ul class="slide-list">
+        @for (int i = 1; i <= ViewBag.countSlide; i++)
+            {
+            <li><a href="#">@i</a></li>
+        }
+    </ul>
+</div>

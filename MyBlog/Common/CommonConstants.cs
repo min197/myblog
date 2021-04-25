@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace MyBlog.Common
+{
+    public static class CommonConstants
+    {
+        public static string USER_SESSION = "USER_SESSION"; // Chuỗi mặc định của phiên làm việc với User
+    }
+}

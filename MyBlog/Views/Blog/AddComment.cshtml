@@ -1,0 +1,91 @@
+﻿@model Model.ModelView.CommentAndUser
+@using BotDetect.Web.Mvc;
+
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+      rel="stylesheet" type="text/css" />
+
+@{
+    MvcCaptcha commentCaptcha = new MvcCaptcha("CommentCaptcha");
+    commentCaptcha.UserInputID = "CaptchaCode";
+}
+
+
+
+@using (Html.BeginForm("AddComment", "Blog", new { postId = ViewBag.PostID}, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="well">
+        <h4>Để lại bình luận:</h4> 
+        <h5>Thông tin về Email, Website của bạn sẽ được bảo mật</h5>
+
+        <div class="form-group">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger"})
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"].ToString()</div>
+            }
+
+            @if (TempData["ErrorMessage1"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessageq"].ToString()</div>
+            }
+
+            @if (TempData["ErrorMessage2"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessageư"].ToString()</div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"].ToString()</div>
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.TextAreaFor(model => model.Content, new { @class = "form-control", placeholder = "Nội dung bình luận (bắt buộc, lớn hơn 10 ký tự và nhỏ hơn 500 ký tự)", @rows = "3" })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.UserName, new { placeholder = "Bắt buộc", htmlAttributes = new { @class = "form-control"} })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.Email, new { placeholder = "Bắt buộc", htmlAttributes = new { @class = "form-control"}})
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AcceptContact, htmlAttributes: new { @class = "control-label col-md-2" })
+           
+                @Html.CheckBoxFor(model => model.AcceptContact)
+                @Html.ValidationMessageFor(model => model.AcceptContact, "", new { @class = "text-danger" })
+        </div>
+        <!--Captcha comment-->
+        <div class="form-group">
+            @Html.Captcha(commentCaptcha);
+        </div>
+
+        <div class="form-group">
+            @Html.TextBox("CaptchaCode");
+        </div>
+       
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Bình luận</button>
+        </div>
+        </div>
+    <hr>
+}
+
+
