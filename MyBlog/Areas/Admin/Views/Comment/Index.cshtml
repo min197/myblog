@@ -12,7 +12,7 @@
 }
 
 @section header{
-    Danh sách Comment
+    Danh sách bình luận
 }
 
 @section jsFooter{
@@ -43,33 +43,35 @@
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Post ID</th>
                                 <th>Parent ID</th>
                                 <th>User ID</th>
-                                <th>Comment Image</th>
-                                <th>CreatedBy</th>
-                                <th>CreatedDate</th>
-                                <th>Modified Date</th>
-                                <th>Modified By</th>
-                                <th>Content</th>
-                                <th>DatePublished</th>
-                                <th>Status</th>
+                                <th>Link ảnh</th>
+                                <th>Tạo bởi</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày chỉnh sửa</th>
+                                <th>Chỉnh sửa bởi</th>
+                                <th>Nội dung</th>
+                                <th>Ngày đăng</th>
+                                <th>Trạng thái</th>
                                 <th>Tác vụ</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>ID</th>
                                 <th>Post ID</th>
                                 <th>Parent ID</th>
                                 <th>User ID</th>
-                                <th>Comment Image</th>
-                                <th>CreatedBy</th>
-                                <th>CreatedDate</th>
-                                <th>Modified Date</th>
-                                <th>Modified By</th>
-                                <th>Content</th>
-                                <th>DatePublished</th>
-                                <th>Status</th>
+                                <th>Link ảnh</th>
+                                <th>Tạo bởi</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày chỉnh sửa</th>
+                                <th>Chỉnh sửa bởi</th>
+                                <th>Nội dung</th>
+                                <th>Ngày đăng</th>
+                                <th>Trạng thái</th>
                                 <th>Tác vụ</th>
                             </tr>
                         </tfoot>
@@ -77,6 +79,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr id="row_@item.ID">
+                                    <td>@item.ID</td>
                                     <td>@item.PostID</td>
                                     <td>@item.ParentID</td>
                                     <td>@item.UserID</td>

@@ -15,18 +15,18 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Menu</h4>
+        <h4>Tạo mới Menu</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Tên:", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.TextBoxFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
 
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Đường dẫn (viết liền và dấu -):", htmlAttributes: new { @class = "control-label col-md-2" })
 
             @Html.TextBoxFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Thứ tự hiển thị:", htmlAttributes: new { @class = "control-label col-md-2" })
 
             @Html.TextBoxFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Target, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Target:", htmlAttributes: new { @class = "control-label col-md-2" })
 
             @Html.TextBoxFor(model => model.Target, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Target, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Nhóm Menu:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TypeID, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Trạng thái:", htmlAttributes: new { @class = "control-label col-md-2" })
 
             <div class="checkbox">
                 @Html.CheckBoxFor(model => model.Status)

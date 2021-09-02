@@ -18,8 +18,10 @@ namespace MyBlog.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Edit(long id)
         {
+            ViewBag.ListCategory = new CategoryDao().ListCategory();
             var cat = new CategoryDao().GetById(id);    // tạo biến lấy ra Danh mục theo id truyền vào
             return View(cat);
         }
@@ -34,14 +36,14 @@ namespace MyBlog.Areas.Admin.Controllers
                 var result = dao.Update(cat, LoginController.userLogin);  // tạo biến lưu lại giá trị sau khi thay đổi thông tin
                 if (result)  // Kiểm tra chỉnh sửa thành công
                 {
-                    TempData["Message"] = "Category " + cat.Title + " update successfully"; // Trả về thông báo update thành công
+                    TempData["Message"] = "Danh mục " + cat.Title + " cập nhật thành công"; // Trả về thông báo update thành công
                     return RedirectToAction("Index", "Category"); // Trả về một Controller User với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorUpdate"] = "Update Category unsuccessfully";
-                    ModelState.AddModelError("", "Update Category unsuccessfully!");  // Trả về một thông báo lỗi
+                    TempData["ErrorUpdate"] = "Cập nhật không thành công";
+                    ModelState.AddModelError("", "Cập nhật không thành công!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
             }
@@ -52,6 +54,7 @@ namespace MyBlog.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.ListCategory = new CategoryDao().ListCategory();
             return View(); // Lấy về view danh sách danh mục
         }
 
@@ -71,14 +74,14 @@ namespace MyBlog.Areas.Admin.Controllers
 
                 if (id > 0)  // Kiểm tra id > 0 <=> đã thêm vào thành công
                 {
-                    TempData["Message"] = "Category " + newCategory.Title + " created successfully"; // Trả về thông báo tạo Danh mục thành công
+                    TempData["Message"] = "Danh mục " + newCategory.Title + " đã được tạo thành công"; // Trả về thông báo tạo Danh mục thành công
                     return RedirectToAction("Index", "Category"); // Trả về một Controller Category với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorCreate"] = "Create new category unsuccessfully";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
-                    ModelState.AddModelError("", "Add new category unsuccessfully!");  // Trả về một thông báo lỗi
+                    TempData["ErrorCreate"] = "Tạo danh mục mới thất bại";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
+                    ModelState.AddModelError("", "Tạo danh mục mới thất bại");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
             }

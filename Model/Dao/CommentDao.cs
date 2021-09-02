@@ -18,17 +18,17 @@ namespace Model.Dao
             db = new MyBlogDbContext();
         }
 
-        public PostComment GetById(long id)
+        public PostComment GetById(long id) // Lấy postcomment theo id truyền vào
         {
             return db.PostComments.Find(id);
         }
 
-        public List<PostComment> GetListCommentByPostId(long postId)
+        public List<PostComment> GetListCommentByPostId(long postId) //Lấy ra danh sách comment dựa theo id post
         {
             return db.PostComments.Where(x => x.Status == true && x.PostID == postId).OrderBy(x => x.CreatedDate).ToList();
         }
 
-        public List<PostComment> GetListCommentByParentId(long parentId)
+        public List<PostComment> GetListCommentByParentId(long parentId)  // Lấy ra danh sách comment theo biến id cha
         {
             return db.PostComments.Where(x => x.Status == true && x.ParentID == parentId).OrderBy(x => x.CreatedDate).ToList();
         }
@@ -64,7 +64,7 @@ namespace Model.Dao
         //    return model.OrderBy(x => x.comment.ID).ToList();
         //}
 
-        public List<CommentAndUser> GetCommentAndUserByPostId(long postId)
+        public List<CommentAndUser> GetCommentAndUserByPostId(long postId)  // Lấy ra comment và user comment qua postId
         {
             var model = from a in db.PostComments.ToList()
                         join b in db.UserComments.ToList() on a.UserID equals b.ID
@@ -83,8 +83,93 @@ namespace Model.Dao
             return model.OrderBy(x => x.CreatedDate).ToList();
         }
 
-
         public long InsertCommentAndUser(PostComment comment, UserComment user) // tạo một hàm trả về khi thêm mới một bản ghi comment
+        {
+            var userGet = db.UserComments.SingleOrDefault(x => x.Email == user.Email);
+
+            if (userGet == null) // User chưa tồn tại trong db
+            {
+                // Thêm user mới vào usercomment
+                user.CreatedDate = DateTime.Now;
+                user.Status = true;
+                db.UserComments.Add(user);
+                db.SaveChanges();
+
+                if (comment.Content != null)
+                {
+                    comment.CreatedBy = user.UserName;
+                    comment.CreatedDate = comment.CreatedDate;
+                    comment.Status = false;  
+                    comment.UserID = user.ID;
+
+                    db.PostComments.Add(comment);           // Thêm bản ghi vào bảng Comment
+                    db.SaveChanges();
+
+                    return comment.ID;
+                }
+                else
+                {
+                    return -1;   // User hợp lệ, comment rỗng
+                }
+
+            }
+            else   // User đã tồn tại trong db
+            {
+                if (user.UserName == userGet.UserName && (userGet.Website != null && user.Website != null))
+                {
+                    // Cập nhật thông tin cho user comment
+                    userGet.Website = user.Website;
+                    userGet.AcceptContact = user.AcceptContact;
+                    db.SaveChanges();
+
+                    // Thêm comment nếu user đã tồn tại
+                    if (comment.Content != null)
+                    {
+                        comment.CreatedBy = userGet.UserName;
+                        comment.Status = false;
+                        comment.UserID = userGet.ID;
+
+                        db.PostComments.Add(comment);           // Thêm bản ghi vào bảng Comment
+                        db.SaveChanges();
+
+                        return comment.ID;
+                    }
+                    else
+                    {
+                        return -1;   // User hợp lệ, comment rỗng
+                    }
+
+                }
+                else // Cập nhật thông tin cho user
+                {
+                    userGet.UserName = user.UserName;
+                    if(user.Website != null)
+                    {
+                        userGet.Website = user.Website;
+                    }
+                    db.SaveChanges();  // Lưu thông tin cập nhật
+                    // Thêm comment và cập nhật user
+                    if (comment.Content != null)
+                    {
+                        comment.CreatedBy = userGet.UserName;
+                        comment.Status = false;
+                        comment.UserID = userGet.ID;
+
+                        db.PostComments.Add(comment);           // Thêm bản ghi vào bảng Comment
+                        db.SaveChanges();
+
+                        return comment.ID;
+                    }
+                    else
+                    {
+                        return -1;   // User hợp lệ, comment rỗng
+                    }
+                }
+            }
+        }
+
+        /*
+         * public long InsertCommentAndUser(PostComment comment, UserComment user) // tạo một hàm trả về khi thêm mới một bản ghi comment
         {
             var userGet = db.UserComments.SingleOrDefault(x => x.Email == user.Email);
             if(userGet == null)
@@ -97,7 +182,7 @@ namespace Model.Dao
                 if (comment.Content != null)
                 {
                     comment.CreatedBy = user.UserName;
-                    comment.CreatedDate = DateTime.Now;
+                    comment.CreatedDate = comment.CreatedDate;
                     comment.Status = true;
                     comment.UserID = user.ID;
 
@@ -146,7 +231,8 @@ namespace Model.Dao
                 }
             }
 
-        }
+        }*/
+
 
 
 

@@ -14,7 +14,7 @@
                 dataType: "json", // chọn kiểu cho ajax
                 type: "POST",
                 success: function (response) {
-                    alert("Status comment have been changed!");
+                    alert("Trạng thái của bình luận đã được thay đổi!");
                     if (response.status == true) {
                         btn.text('Blocked');
                     }
@@ -23,7 +23,7 @@
                     }
                 },
                 error: function (ex) {
-                    alert("Cannot change status");
+                    alert("Không thể thay đổi trạng thái");
                 }
 
             })

@@ -40,13 +40,13 @@ namespace MyBlog.Areas.Admin.Controllers
                 if (result)  // Kiểm tra chỉnh sửa thành công
                 {
 
-                    TempData["Message"] = "Slide " + slide.Title + " update successfully"; // Trả về thông báo update thành công
+                    TempData["Message"] = "Slide " + slide.Title + " cập nhật thành công"; // Trả về thông báo update thành công
                     return RedirectToAction("Index", "Slide"); // Trả về một Controller Slide với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorUpdate"] = "Update Slide unsuccessfully";
+                    TempData["ErrorUpdate"] = "Cập nhật slide thất bại";
                     ModelState.AddModelError("", "Update Slide unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
@@ -76,13 +76,13 @@ namespace MyBlog.Areas.Admin.Controllers
 
                 if (id > 0)  // Kiểm tra id > 0 <=> đã thêm vào thành công
                 {
-                    TempData["Message"] = "Slide " + newSlide.Title + " created successfully"; // Trả về thông báo tạo Danh mục thành công
+                    TempData["Message"] = "Slide " + newSlide.Title + " được tạo thành công."; // Trả về thông báo tạo Danh mục thành công
                     return RedirectToAction("Index", "Slide"); // Trả về một Controller Slide với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorCreate"] = "Create new Slide unsuccessfully";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
+                    TempData["ErrorCreate"] = "Tạo mới slide thất bại.";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
                     ModelState.AddModelError("", "Add new Slide unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }

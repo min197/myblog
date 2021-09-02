@@ -111,6 +111,25 @@ namespace Model.Dao
             return post.CountRead;
         }
 
+        public long? coutComment(bool statusCmt, long postId)
+        {
+            Post post = db.Posts.ToList().Find(x => x.ID == postId);
+            if(statusCmt == true)
+            {
+                post.CountComment += 1;
+            }else
+            {
+                post.CountComment -= 1;
+            }
+
+            if (post.CountComment < 0)
+            {
+                post.CountComment = 0; // Giới hạn số lượng lượt thích
+            }
+            db.SaveChanges();
+            return post.CountComment;
+        }
+
         public string GetFullNameAuthorById(long id)
         {
             var dao = db.Users.Find(id);

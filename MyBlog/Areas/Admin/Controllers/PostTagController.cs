@@ -78,13 +78,13 @@ namespace MyBlog.Areas.Admin.Controllers
                 long id = result.Insert(newPostTag); // Tạo một biến lưu trữ dữ liệu trả về kiểu ID sau khi thực hiện hàm thêm bản ghi
                 if (id > 0)  // Kiểm tra id > 0 <=> đã thêm vào thành công
                 {
-                    TempData["Message"] = "New Relation created successfully"; // Trả về thông báo tạo Danh mục thành công
+                    TempData["Message"] = "Quan hệ post-tag đã được tạo thành công."; // Trả về thông báo tạo Danh mục thành công
                     return RedirectToAction("Index", "PostTag"); // Trả về một Controller Tag với phương thức PostTag
 
                 }
                 else
                 {
-                    TempData["ErrorCreate"] = "Create Relation unsuccessfully";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
+                    TempData["ErrorCreate"] = "Tạo mới quan hệ post-tag thất bại";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
                     ModelState.AddModelError("", "Add new Relation unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }

@@ -13,12 +13,12 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header text-center">Profile</h2>
+                <h2 class="page-header text-center">Thông tin cá nhân</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="/Home/Index">Home</a>
+                        <a href="/trang-chu">Trang chủ</a>
                     </li>
-                    <li><a href="/gioi-thieu">About</a></li>
+                    <li><a href="/gioi-thieu">Giới thiệu</a></li>
                     <li class="active">@Model.FirstName @Model.MidName @Model.LastName</li>
                 </ol>
             </div>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <!-- Post Content -->
+                <!-- Profile tác giả -->
                 @Html.Raw(@Model.Profile)
                 
             </div>
@@ -47,7 +47,7 @@
             <div class="col-md-4 blog-post-w3layouts">
                 <!-- Blog Search Well -->
                 <div class="well blog-post-agileits">
-                    <h4>Blog Search</h4>
+                    <h4>Tìm kiếm Blog</h4>
                     @using (Html.BeginForm("Index", "Blog", FormMethod.Get))
                     {
                         <div class="input-group">
@@ -64,13 +64,13 @@
                  
                     <!-- Side Widget Well -->
                     <div class="well">
-                        <h4>Blog by @Model.FirstName @Model.MidName @Model.LastName:</h4>
+                        <h4>Bài viết bởi @Model.FirstName @Model.MidName @Model.LastName:</h4>
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="list-unstyled">
                                     @foreach (var item in postByUserID)
                                     {
-                                        <li><a href="/blog/@item.Link-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
+                                        <li><a href="/blog/@item.MetaTitle-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
                                     }
                                 </ul>
                             </div>
@@ -81,13 +81,13 @@
 
 
                     <div class="well">
-                        <h4>New Blog:</h4>
+                        <h4>Bài viết mới:</h4>
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="list-unstyled">
                                     @foreach (var item in listNewPost)
                                     {
-                                        <li><a href="/blog/@item.Link-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
+                                        <li><a href="/blog/@item.MetaTitle-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
                                     }
 
 
@@ -99,13 +99,13 @@
                     </div>
 
                     <div class="well">
-                        <h4>Hot Blog:</h4>
+                        <h4>Bài viết hot:</h4>
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="list-unstyled">
                                     @foreach (var item in listHotPost)
                                     {
-                                        <li><a href="/blog/@item.Link-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
+                                        <li><a href="/blog/@item.MetaTitle-@item.ID"><span class="fa fa-hand-o-right" aria-hidden="true"></span>@item.Title<span class="fa fa-hand-o-left" aria-hidden="true"></span></a></li>
                                     }
 
 

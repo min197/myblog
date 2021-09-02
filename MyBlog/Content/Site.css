@@ -20,5 +20,10 @@
 input,
 select,
 textarea {
+    color:black;
     max-width: 280px;
+}
+
+.error{
+    color:red;
 }

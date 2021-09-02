@@ -1,0 +1,47 @@
+﻿input#searchString,input#txtName , input#txtWebsite, input#txtPhone, input#txtEmail, input#txtRepName, input#txtRepWebsite, input#txtRepEmail,textarea#txtContent, textarea#txtRepContent , textarea#txtMessage{
+	color:#000;
+	border-radius: 0px;
+	margin-bottom:10px;
+	background-color: rgba(255, 255, 255, 0);
+	font-size:17px;
+	font-weight:normal;
+	border:1px solid #000;
+}
+
+input#searchString,input#txtName , input#txtWebsite, input#txtPhone, input#txtEmail, input#txtRepName, input#txtRepWebsite, input#txtRepEmail{
+	height:55px;	
+}
+
+.error{
+    color: red;
+}
+
+section.blog-post p{
+	font-size: 17px;
+    font-weight: 300;
+    line-height: 30px;
+    padding-bottom: 10px;
+}
+
+section.blog-w3ls p{
+	font-size:17px;
+	font-weight:300;
+	line-height:30px;
+	padding:10px 0 20px;
+}
+
+.bootbox-body {
+    color: greenyellow;
+    border-radius: 0px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 25px;
+    font-weight: normal;
+}
+
+section.footer p {
+	color: #fff;
+    font-weight: normal;
+    font-size: 17px;
+    margin: -22px 0 15px 30px;
+}

@@ -12,7 +12,7 @@ namespace MyBlog.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.getCategory = new CategoryDao().ListAllCategory();  // Lấy ra tất cả danh mục hiện có
+            ViewBag.getCategory = new CategoryDao().ListCategoryByParentId(0);  // Lấy ra tất cả danh mục blog hiện có
             var getPost = new PostDao();
             ViewBag.NewPost = getPost.GetNewPost(3);    // Lấy ra 3 bản ghi mới nhất
             ViewBag.HotPost = getPost.GetHotPost(3);   // Lấy ra 3 bản ghi hot nhất
@@ -39,7 +39,7 @@ namespace MyBlog.Controllers
         [ChildActionOnly]   // Thuộc tính chỉ dành cho những hành động con
         public ActionResult MainMenu() 
         {
-            ViewBag.SubMenu = new CategoryDao().ListAllCategory();  // lấy ra menu con
+            ViewBag.SubMenu = new CategoryDao().ListCategoryByParentId(0);  // lấy ra menu con là danh mục blog
             var model = new MenuDao().ListByTypeId(1);  // tạo biến lấy ra dữ liệu dạng danh sách menu
             return PartialView(model);   // Trả về một phần của View truyền vào danh sách menu
         }
@@ -47,8 +47,8 @@ namespace MyBlog.Controllers
         [ChildActionOnly]   // Thuộc tính chỉ dành cho những hành động con
         public ActionResult Footer()
         {
-            var model = new FooterDao().GetFooter("Footer_1"); // tạo biến lấy ra dữ liệu dạng danh sách menu
-            return PartialView(model);   // Trả về một phần của View truyền vào danh sách menu
+            var model = new FooterDao().GetFootertById(1); // tạo biến lấy ra dữ liệu footer
+            return PartialView(model);   // Trả về một phần của View truyền vào footer
             
         }
 

@@ -1,24 +1,85 @@
-﻿
+﻿@model Model.EF.Contact
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Liên hệ";
     Layout = "~/Views/Shared/_Layout.cshtml";
+  
 }
-<section class="blog-w3ls">
+
+@section scripts{
+    <script src="~/assets/client/js/plugins/bootbox.min.js"></script>
+    <script src="~/assets/client/js/plugins/mustache.min.js"></script>
+    <script src="~/assets/client/js/plugins/jquery.twbsPagination.min.js"></script>
+    <script src="~/assets/client/js/plugins/jquery.validate.min.js"></script>
+    <script src="~/assets/client/js/contactController.js"></script>
+}
+
+<link href="/assets/client/css/myStyle.css" rel="stylesheet" type="text/css" media="all" />
+
+<section class="contact-us">
+    <!-- Page Content -->
     <div class="container">
+
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="page-header text-center">Liên hệ</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="/Home/Index">Home</a>
+                        <a href="/trang-chu">Trang chủ</a>
                     </li>
-                    <li class="active">Contact</li>
+                    <li class="active">Liên hệ</li>
                 </ol>
             </div>
         </div>
-
-        <h2>Trang web vẫn đang phát triển, cảm ơn bạn đã sử dụng</h2>
-
+        <!-- /.row -->
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Map Column -->
+            <div class="col-md-8">
+                <!-- Embedded Google Map -->
+                <iframe class="googlemaps" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d380510.6741687111!2d-88.01234121699822!3d41.83390417061058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1455598377120" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <!-- Contact Details Column -->
+            <div class="col-md-4">
+                @Html.Raw(Model.Content)
+            </div>
         </div>
-    </section>
+        <!-- /.row -->
+        <!-- Contact Form -->
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="contact-agileits2">Gửi tin nhắn cho chúng tôi:</h3>
+                <form id="formFeedback">
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Tên của bạn:</label>
+                            <input type="text" class="form-control" name="txtName" id="txtName" placeholder="Tên hoặc họ tên."  required />
+                        </div>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Số điện thoại:</label>
+                            <input type="text" class="form-control" name="txtPhone" id="txtPhone" placeholder="Hãy điền số điện thoại." required />
+                        </div>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Email:</label>
+                            <input type="text" class="form-control" name="txtEmail" id="txtEmail" placeholder="Hãy điền email của bạn." required />
+                        </div>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Nội dung tin nhắn:</label>
+                            <textarea rows="10" cols="100" class="form-control" name="txtMessage"  id="txtMessage" placeholder="Hãy điền nội dung tin nhắn" style="resize:none" required></textarea>
+                        </div>
+                    </div>
+                    <button  id="btnSendFeedback"  class="btn btn-primary" style="display: none;" >Gửi đi</button>
+                </form>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+    </div>
+    <!-- /.container -->
+</section>	

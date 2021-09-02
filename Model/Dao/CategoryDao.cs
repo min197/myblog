@@ -23,17 +23,28 @@ namespace Model.Dao
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize); // Hàm toPagedList của Plugin Pagedlist
         }
 
-        public List<Category> ListAllCategory()
+        public List<Category> ListAllCategory() // Lấy danh sách tất cả các danh mục
         {
             return db.Categories.Where(x => x.Status == true && x.ShowOnHome == true).OrderBy(x => x.ID).ToList();
         }
+
+        public List<Category> ListCategoryByParentId(long parentId) // Lấy danh sách danh mục con theo danh mục cha
+        {
+            return db.Categories.Where(x => x.Status == true && x.ShowOnHome == true && x.ParentID == parentId).OrderBy(x => x.ID).ToList();
+        }
+
+        public IEnumerable<Category> ListCategory()
+        {
+            return db.Categories.Where(x => x.Status == true).OrderByDescending(x => x.CreatedDate).ToList();
+        }
+
 
         public IEnumerable<Category> ListCategoryPost()
         {
             return db.Categories.Where(x => x.Status == true && x.ShowOnHome == true).OrderBy(x => x.ID).ToList();
         }
 
-        public bool checkNullCategory(Category cat)
+        public bool checkNullCategory(Category cat) // Kiểm tra danh mục hợp lệ hay không
         {
             if (cat.Title != null && cat.MetaTitle != null )
             {
@@ -108,7 +119,7 @@ namespace Model.Dao
             return !cat.Status;          // trả về bool thay đổi 
         }
 
-        public bool ChangeShowOnHome(long id)   
+        public bool ChangeShowOnHome(long id)   // Chỉnh sửa trạng thái hiển thị tại trang Home
         {
             var cat = db.Categories.Find(id);     
             cat.ShowOnHome = !cat.ShowOnHome;

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -26,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TypeScriptToolsVersion>4.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -272,6 +274,9 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FeedbackController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FooterController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
@@ -279,6 +284,7 @@
     <Compile Include="Areas\Admin\Controllers\PostTagController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserCommentController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Common\CommonConstants.cs" />
@@ -286,7 +292,6 @@
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -297,12 +302,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\admin\css\AdminMyStyle.css" />
+    <Content Include="assets\admin\css\bootstrap.min.css" />
     <Content Include="assets\admin\css\image-login.png" />
     <Content Include="assets\admin\css\image.jpg" />
     <Content Include="assets\admin\css\sb-admin-2.css" />
     <Content Include="assets\admin\css\sb-admin-2.min.css" />
+    <Content Include="assets\admin\js\bootstrap.min.js" />
     <Content Include="assets\admin\js\controller\categoryController.js" />
     <Content Include="assets\admin\js\controller\commentController.js" />
+    <Content Include="assets\admin\js\controller\contactController.js" />
+    <Content Include="assets\admin\js\controller\feedbackController.js" />
+    <Content Include="assets\admin\js\controller\footerController.js" />
     <Content Include="assets\admin\js\controller\menuController.js" />
     <Content Include="assets\admin\js\controller\postController.js" />
     <Content Include="assets\admin\js\controller\PostTag.js" />
@@ -313,6 +324,7 @@
     <Content Include="assets\admin\js\demo\chart-bar-demo.js" />
     <Content Include="assets\admin\js\demo\chart-pie-demo.js" />
     <Content Include="assets\admin\js\demo\datatables-demo.js" />
+    <Content Include="assets\admin\js\jquery.min.js" />
     <Content Include="assets\admin\js\plugins\ckeditor\adapters\jquery.js" />
     <Content Include="assets\admin\js\plugins\ckeditor\build-config.js" />
     <Content Include="assets\admin\js\plugins\ckeditor\ckeditor.js" />
@@ -5414,8 +5426,13 @@
     <Content Include="assets\admin\js\plugins\ckfinder\_samples\sample.css" />
     <Content Include="assets\admin\js\plugins\ckfinder\_samples\standalone.html" />
     <Content Include="assets\admin\js\plugins\ckfinder\_samples\standalone_v1.html" />
+    <Content Include="assets\admin\js\plugins\jquery\bootbox.min.js" />
+    <Content Include="assets\admin\js\plugins\jquery\jquery.twbsPagination.min.js" />
+    <Content Include="assets\admin\js\plugins\jquery\jquery.validate.min.js" />
+    <Content Include="assets\admin\js\plugins\jquery\mustache.min.js" />
     <Content Include="assets\admin\js\sb-admin-2.js" />
     <Content Include="assets\admin\js\sb-admin-2.min.js" />
+    <Content Include="assets\admin\Template\TemplateEmailReplyFeedback.html" />
     <Content Include="assets\admin\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="assets\admin\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="assets\admin\vendor\bootstrap\js\bootstrap.js" />
@@ -7076,6 +7093,7 @@
     <Content Include="assets\client\css\bootstrap.min.css" />
     <Content Include="assets\client\css\font-awesome.min.css" />
     <Content Include="assets\client\css\info.css" />
+    <Content Include="assets\client\css\myStyle.css" />
     <Content Include="assets\client\css\style.css" />
     <Content Include="assets\client\css\trend.css" />
     <Content Include="assets\client\css\typo.css" />
@@ -7143,16 +7161,32 @@
     <Content Include="assets\client\images\_MG_6853.JPG" />
     <Content Include="assets\client\images\_MG_6986.JPG" />
     <Content Include="assets\client\js\bliss-slider.js" />
+    <Content Include="assets\client\js\blogController.js" />
     <Content Include="assets\client\js\bootstrap.min.js" />
+    <Content Include="assets\client\js\contactController.js" />
     <Content Include="assets\client\js\jquery.min.js" />
+    <Content Include="assets\client\js\plugins\bootbox.min.js" />
+    <Content Include="assets\client\js\plugins\jquery.twbsPagination.min.js" />
+    <Content Include="assets\client\js\plugins\jquery.validate.min.js" />
+    <Content Include="assets\client\js\plugins\mustache.min.js" />
     <Content Include="assets\client\js\SmoothScroll.min.js" />
+    <Content Include="assets\client\Template\TemplateEmail.html" />
+    <Content Include="assets\client\Template\TemplateEmailFeedback.html" />
+    <Content Include="assets\client\Template\TemplateEmailFeedbackToAdmin.html" />
+    <Content Include="assets\client\Template\TemplateEmailToAdmin.html" />
+    <Content Include="assets\client\Template\TemplateEmailToUser.html" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -7404,6 +7438,31 @@
     <Content Include="Areas\Admin\Views\PostTag\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Comment\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Comment\Edit.cshtml" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Areas\Admin\Views\UserComment\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Footer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Footer\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Footer\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Feedback\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Feedback\_ModalRepFeedback.cshtml" />
+    <None Include="Properties\PublishProfiles\Gocnhincode.pubxml" />
+    <None Include="Properties\PublishProfiles\itblog.pubxml" />
+    <None Include="Properties\PublishProfiles\Myblog.pubxml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -7418,6 +7477,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -7446,8 +7509,14 @@
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\About\AboutUser.cshtml" />
     <Content Include="Views\Blog\BlogTag.cshtml" />
-    <Content Include="Views\Blog\AddComment.cshtml" />
     <Content Include="Views\Blog\GetComments.cshtml" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Views\Blog\_ModalAddComment.cshtml" />
+    <Content Include="Views\Blog\_ModalAddReplyComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -7464,16 +7533,27 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{2779f14e-cb42-4e03-99a4-674afe832d5a}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{c22dba77-6090-4f8b-8fce-d5632f62f8d6}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
@@ -7487,7 +7567,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52605</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52605/</IISUrl>
+          <IISUrl>http://localhost:52305/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

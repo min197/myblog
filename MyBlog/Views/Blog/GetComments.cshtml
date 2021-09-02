@@ -12,39 +12,43 @@
             <a class="pull-left">
                 <div class="hover01 column">
                     <div>
-                        <figure><img class="media-object" src="@item.Avatar" alt=""></figure>
+                        <figure><img class="media-object" src="@item.Avatar" alt="" height="64" width="64"></figure>
                     </div>
                 </div>
             </a>
             <div class="media-body">
                 <h4 class="media-heading">
                     @item.UserName
-                    <small>Đã bình luận @item.CreatedDate</small>
+                    <small> đã bình luận &nbsp; @item.CreatedDate</small>
                 </h4>
                 <p class="blogpost-agileits">@item.Content</p>
-            </div>
-            @if (child.Count() > 0)
-            {
-                foreach (var chilItem in child)
+
+                <button id="btnAddReplyComment" class="btn btn-success btnAddReplyComment" data-id="@item.CommentID">Trả lời</button>
+
+
+                @if (child.Count() > 0)
                 {
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <div class="hover01 column">
-                                <div>
-                                    <figure><img class="media-object" src="@chilItem.Avatar" alt=""></figure>
+                    foreach (var chilItem in child)
+                    {
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <div class="hover01 column">
+                                    <div>
+                                        <figure><img class="media-object" src="@chilItem.Avatar" alt="" height="64" width="64"></figure>
+                                    </div>
                                 </div>
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    @chilItem.UserName
+                                    <small>Đã trả lời @item.UserName &nbsp; @chilItem.CreatedDate</small>
+                                </h4>
+                                <p class="blogpost-agileits">@chilItem.Content</p>
                             </div>
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">
-                                @chilItem.UserName
-                                <small>@chilItem.CreatedDate</small>
-                            </h4>
-                            <p class="blogpost-agileits">@chilItem.Content</p>
                         </div>
-                    </div>
+                    }
                 }
-            }
+            </div>
 
             <!-- Capcha-->
 

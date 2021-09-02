@@ -1,12 +1,15 @@
 ﻿using BotDetect.Web.Mvc;
+using Common;
 using Model.Dao;
 using Model.EF;
 using Model.ModelView;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace MyBlog.Controllers
 {
@@ -139,7 +142,7 @@ namespace MyBlog.Controllers
             }
         }
 
-        public PartialViewResult GetComments(long postId)
+        public PartialViewResult GetComments(long postId) // Lấy comment với id post truyền vào
         {
             //var model = new CommentDao().GetListCommentByPostId(postId);
             var model = new CommentDao().GetCommentAndUserByPostId(postId);
@@ -147,7 +150,186 @@ namespace MyBlog.Controllers
             return PartialView(model);
         }
 
-        [HttpGet]
+        [HttpPost]
+        public JsonResult AddComment(string strComment)  // Thêm bình luận trả về JSON
+        {
+            
+            JavaScriptSerializer serializer = new JavaScriptSerializer(); // Tạo biến JSSerialize
+            Comment newComment = serializer.Deserialize<Comment>(strComment); // Tạo biến new Comment lưu lại giá trị chuyển đổi JSON được truyền về Controller 
+            bool status = false;   // Biến trạng thái của hàm
+            string message = string.Empty;   // Tạo biến lưu tin nhắn trả về
+
+            if(newComment.PostID > 0)   // Nếu ID post truyền vào hợp lệ
+            {
+                // Tạo biến user - lưu thông tin người dùng, cmt - lưu comment người dùng
+                var user = new UserComment();
+                var cmt = new PostComment();
+
+                // Gán thêm các thuộc tính cho đối tượng user và cmt
+
+                user.UserName = newComment.UserName;
+                user.Email = newComment.Email;
+                user.Website = newComment.Website;
+                user.AcceptContact = newComment.AcceptContact;
+                user.AvatarImage = "/Data/images/smile.png";
+
+
+                cmt.Content = newComment.Content;
+                cmt.CreatedDate = DateTime.Now;
+                cmt.PostID = newComment.PostID;
+
+
+                try
+                {
+                    // Thêm user và comment
+                    long resultAddComment = new CommentDao().InsertCommentAndUser(cmt, user);
+                    status = true;  // trả về kết quả thêm
+
+                    // Tạo biến string lưu trữ thông tin form gửi về email
+                    string contentToAdmin = System.IO.File.ReadAllText(Server.MapPath("~/assets/client/Template/TemplateEmailToAdmin.html"));
+                    contentToAdmin = contentToAdmin.Replace("{{UserName}}", user.UserName);
+                    contentToAdmin = contentToAdmin.Replace("{{Email}}", user.Email);
+                    contentToAdmin = contentToAdmin.Replace("{{Website}}", user.Website);
+                    contentToAdmin = contentToAdmin.Replace("{{PostName}}", new PostDao().GetById(cmt.PostID).Title);
+                    contentToAdmin = contentToAdmin.Replace("{{Content}}", cmt.Content);
+                    contentToAdmin = contentToAdmin.Replace("{{AcceptContact}}", user.AcceptContact.ToString());
+                    // Gửi thông báo về email quản trị
+                    new MailHelper().SendMailToAdmin("Bình luận mới từ " + user.UserName + " đến Blog" , contentToAdmin);
+                    // Gửi thông báo về email người dùng
+                    if (user.AcceptContact == true)
+                    {
+                        string contentToUser = System.IO.File.ReadAllText(Server.MapPath("~/assets/client/Template/TemplateEmailToUser.html"));
+                        contentToUser = contentToUser.Replace("{{UserName}}", user.UserName);
+                        contentToUser = contentToUser.Replace("{{PostName}}", new PostDao().GetById(cmt.PostID).Title);
+                        contentToUser = contentToUser.Replace("{{Content}}", cmt.Content);
+                        new MailHelper().SendMail(user.Email, "Bình luận của bạn đã được gửi thành công", contentToUser);
+                    }
+
+                    //Những trường hợp xảy ra về phía server
+                    if (resultAddComment > 0)
+                    {
+                       message = "Bình luận gửi thành công và sẽ được kiểm duyệt";
+
+                    }
+                    else if (resultAddComment == -1)
+                    {
+                        ModelState.AddModelError("", "Bình luận không thành công, bạn đã nhập sai yêu cầu");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Bình luận không thành công, đã xảy ra lỗi gì đó, xin vui lòng thử lại");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    status = false; 
+                    message = ex.Message;
+                }
+            }
+            else
+            {
+                status = false;
+                message = "Đã xảy ra lỗi khi gửi";
+            }
+
+            
+            // Trả về JSON với trạng thái sau khi thực hiện hàm, tin nhắn với tin nhắn đã gửi
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
+        }
+
+        [HttpPost]
+        public JsonResult AddReplyComment(string strComment)
+        {
+            // Thêm comment trả lời, tương tự như thêm comment
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            ReplyComment newComment = serializer.Deserialize<ReplyComment>(strComment);
+            bool status = false;
+            string message = string.Empty;
+
+            if (newComment.PostID > 0 && newComment.ParentID > 0)
+            {
+
+                var user = new UserComment();
+                var cmt = new PostComment();
+
+                user.UserName = newComment.UserName;
+                user.Email = newComment.Email;
+                user.Website = newComment.Website;
+                user.AcceptContact = newComment.AcceptContact;
+                user.AvatarImage = "/Data/images/smile.png";
+
+
+                cmt.Content = newComment.Content;
+                cmt.CreatedDate = DateTime.Now;
+                cmt.PostID = newComment.PostID;
+                cmt.ParentID = newComment.ParentID;
+
+                try
+                {
+                    long resultAddComment = new CommentDao().InsertCommentAndUser(cmt, user);
+                    status = true;
+
+                    // Tạo biến string lưu trữ thông tin form gửi về email
+                    string contentToAdmin = System.IO.File.ReadAllText(Server.MapPath("~/assets/client/Template/TemplateEmailToAdmin.html"));
+                    contentToAdmin = contentToAdmin.Replace("{{UserName}}", user.UserName);
+                    contentToAdmin = contentToAdmin.Replace("{{Email}}", user.Email);
+                    contentToAdmin = contentToAdmin.Replace("{{Website}}", user.Website);
+                    contentToAdmin = contentToAdmin.Replace("{{PostName}}", new PostDao().GetById(cmt.PostID).Title);
+                    contentToAdmin = contentToAdmin.Replace("{{Content}}", cmt.Content);
+                    contentToAdmin = contentToAdmin.Replace("{{AcceptContact}}", user.AcceptContact.ToString());
+                    // Gửi thông báo về email quản trị
+                    new MailHelper().SendMailToAdmin("Bình luận mới từ " + user.UserName + " đến Blog", contentToAdmin);
+                    // Gửi thông báo về email người dùng
+                    if (user.AcceptContact == true)
+                    {
+                        string contentToUser = System.IO.File.ReadAllText(Server.MapPath("~/assets/client/Template/TemplateEmailToUser.html"));
+                        contentToUser = contentToUser.Replace("{{UserName}}", user.UserName);
+                        contentToUser = contentToUser.Replace("{{PostName}}", new PostDao().GetById(cmt.PostID).Title);
+                        contentToUser = contentToUser.Replace("{{Content}}", cmt.Content);
+                        new MailHelper().SendMail(user.Email, "Bình luận của bạn đã được gửi thành công", contentToUser);
+                    }
+
+                    if (resultAddComment > 0)
+                    {
+        
+                        message = "Bình luận gửi thành công và sẽ được kiểm duyệt, cảm ơn bạn đã để lại bình luận^^";
+                    }
+                    else if (resultAddComment == -1)
+                    {
+                        ModelState.AddModelError("", "Bình luận không thành công, bạn đã nhập sai yêu cầu");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Bình luận không thành công, đã xảy ra lỗi gì đó, xin vui lòng thử lại");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    status = false;
+                    message = ex.Message;
+                }
+            }
+            else
+            {
+                status = false;
+                message = "Đã xảy ra lỗi khi gửi";
+            }
+
+            return Json(new
+            {
+                status = status,
+                message = message
+            });
+        }
+
+
+
+        /*[HttpGet]
         public ActionResult AddComment(long postId)
         {
             ViewBag.PostID = postId;
@@ -198,6 +380,7 @@ namespace MyBlog.Controllers
             }
             return RedirectToAction("Detail", "Blog", new { postId = postId });
         }
+        */
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]

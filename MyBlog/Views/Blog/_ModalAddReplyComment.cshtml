@@ -1,0 +1,46 @@
+﻿<!-- Modal -->
+
+<div class="modal fade" id="modalAddReplyComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Trả lời bình luận</h4>
+            </div>
+            <div class="modal-body">
+                <!--Form nhập-->
+                <form role="form" id="formReplyCommentData">
+                    <h5>Thông tin về Email, Website của bạn sẽ được bảo mật.</h5>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label">Tên:</label>
+                        <input type="text" class="form-control" name="txtRepName" id="txtRepName" placeholder="Bắt buộc">
+                        <input type="hidden" id="RepPostId" value="@Page.PostID" />
+                        <input type="hidden" id="RepCommentId" value="0" />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail" class="control-label">Email:</label>
+                        <input type="text" class="form-control" name="txtRepEmail" id="txtRepEmail" placeholder="Bắt buộc">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtWebsite" class="control-label">Website</label>
+                        <input type="text" class="form-control" name="txtRepWebsite" id="txtRepWebsite">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtContent" class="control-label">Nội dung:</label>
+                        <textarea class="form-control" id="txtRepContent" name="txtRepContent" placeholder="Bắt buộc"></textarea>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="ckRepStatus" />Chấp nhận thông báo bình luận về Email đã cung cấp</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="btnSendReplyComment">Trả lời</button>
+                <button type="button" class="btn btn-default" id="btnClose" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

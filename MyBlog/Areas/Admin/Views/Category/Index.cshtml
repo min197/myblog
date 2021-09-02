@@ -13,7 +13,7 @@
 }
 
 @section header{
-    Danh sách Danh mục
+    Danh sách danh mục Blog
 }
 
 @section jsFooter{
@@ -43,36 +43,39 @@
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>ParentID</th>
-                                <th>Title</th>
-                                <th>MetaTitle</th>
-                                <th>Created By</th>
-                                <th>Created Date</th>
-                                <th>Modified Date</th>
-                                <th>Modified By</th>
-                                <th>Status</th>
-                                <th>ShowOnHome</th>
-                                <th>Manage</th>
+                                <th>ID</th>
+                                <th>ID cha</th>
+                                <th>Tên</th>
+                                <th>Link</th>
+                                <th>Tạo bởi</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày chỉnh sửa</th>
+                                <th>Chỉnh sửa bởi </th>
+                                <th>Trạng thái</th>
+                                <th>Hiển thị tại trang chủ</th>
+                                <th>Tác vụ</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>ParentID</th>
-                                <th>Title</th>
-                                <th>MetaTitle</th>
-                                <th>Created By</th>
-                                <th>Created Date</th>
-                                <th>Modified Date</th>
-                                <th>Modified By</th>
-                                <th>Status</th>
-                                <th>ShowOnHome</th>
-                                <th>Manage</th>
+                                <th>ID</th>
+                                <th>ID cha</th>
+                                <th>Tên</th>
+                                <th>Link</th>
+                                <th>Tạo bởi</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày chỉnh sửa</th>
+                                <th>Chỉnh sửa bởi </th>
+                                <th>Trạng thái</th>
+                                <th>Hiển thị tại trang chủ</th>
+                                <th>Tác vụ</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr id="row_@item.ID">
+                                    <td>@item.ID</td>
                                     <td>@item.ParentID</td>
                                     <td>@item.Title</td>
                                     <td>@item.MetaTitle</td>
@@ -81,6 +84,7 @@
                                     <td>@item.ModifiedDate</td>
                                     <td>@item.ModifiedBy</td>
                                     <td><a href="#" class="btn-block" data-id="@item.ID">@(item.Status ? "Actived" : "Blocked")</a> </td>
+                                    <td><a href="#" class="btn-success" data-id="@item.ID">@(item.ShowOnHome ? "Hiển thị" : "Ẩn")</a> </td>
                                     <td>
                                         <a href="/Admin/Category/Edit/@item.ID">Edit</a>
                                         @Ajax.ActionLink("Delete", "Delete", new { @id = @item.ID }, new AjaxOptions

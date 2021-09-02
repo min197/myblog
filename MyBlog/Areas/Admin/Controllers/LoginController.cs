@@ -44,21 +44,21 @@ namespace MyBlog.Areas.Admin.Controllers
                 }
                 else if (result == 0)
                 {
-                    ModelState.AddModelError("", "User does not exist"); 
+                    ModelState.AddModelError("", "Tài khoản không tồn tại"); 
                     
                 }
                 else if( result == -1)
                 {
-                    ModelState.AddModelError("", "User is blocked");
+                    ModelState.AddModelError("", "Tài khoản bị khóa");
                 }
                 else if(result == -2)
                 {
-                    ModelState.AddModelError("", "Password is uncorectly");
+                    ModelState.AddModelError("", "Mật khẩu không đúng");
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Login uncorectly");
+                ModelState.AddModelError("", "Đăng nhập thất bại.");
             }
             return View("Index"); // Khi không thực hiện gì thì trả về view Index
             

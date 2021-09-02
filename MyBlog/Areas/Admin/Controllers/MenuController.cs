@@ -35,14 +35,14 @@ namespace MyBlog.Areas.Admin.Controllers
                 if (result)  // Kiểm tra chỉnh sửa thành công
                 {
 
-                    TempData["Message"] = "Menu " + menu.Text + " update successfully"; // Trả về thông báo update thành công
+                    TempData["Message"] = "Menu " + menu.Text + " cập nhật thành công"; // Trả về thông báo update thành công
                     return RedirectToAction("Index", "Menu"); // Trả về một Controller Menu với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorUpdate"] = "Update Menu unsuccessfully";
-                    ModelState.AddModelError("", "Update Menu unsuccessfully!");  // Trả về một thông báo lỗi
+                    TempData["ErrorUpdate"] = "Cập nhật Menu thất bại";
+                    ModelState.AddModelError("", "Cập nhật Menu thất bại");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
             }
@@ -68,13 +68,13 @@ namespace MyBlog.Areas.Admin.Controllers
 
                 if (id > 0)  // Kiểm tra id > 0 <=> đã thêm vào thành công
                 {
-                    TempData["Message"] = "Menu " + newMenu.Text + " created successfully"; // Trả về thông báo tạo Danh mục thành công
+                    TempData["Message"] = "Menu " + newMenu.Text + " được tạo thành công"; // Trả về thông báo tạo Danh mục thành công
                     return RedirectToAction("Index", "Menu"); // Trả về một Controller Menu với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorCreate"] = "Create new Menu unsuccessfully";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
+                    TempData["ErrorCreate"] = "Tạo mới Menu thất bại";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
                     ModelState.AddModelError("", "Add new Menu unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }

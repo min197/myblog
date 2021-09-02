@@ -17,6 +17,12 @@ namespace MyBlog
             routes.IgnoreRoute("{*botdetect}",
               new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
 
+            routes.MapRoute(
+               name: "Home Index",
+               url: "trang-chu",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+               namespaces: new[] { "MyBlog.Controllers" }
+           );
 
             routes.MapRoute(
                 name: "Post Detail",
@@ -42,7 +48,7 @@ namespace MyBlog
 
             routes.MapRoute(
                 name: "Post on Category",
-                url: "category/{metatitle}-{CatId}",
+                url: "danh-muc-blog/{metatitle}-{CatId}",
                 defaults: new { controller = "Blog", action = "BlogCategory", id = UrlParameter.Optional },
                 namespaces: new[] { "MyBlog.Controllers" }
             );

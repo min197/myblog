@@ -44,32 +44,32 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Post</h4>
+        <h4>Tạo mới bài viết:</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
       
 
         <div class="form-group">
-            @Html.LabelFor(model => model.parentID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Bài viết gốc:", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.DropDownListFor(model => model.parentID, new SelectList(listPost, "ID", "Title"), htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.parentID, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Danh mục:", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.DropDownListFor(model => model.CategoryID, new SelectList (listCategoryPost, "ID", "Title"), htmlAttributes: new {@class = "form-control" })
             @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
 
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Tên:", htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.TextBoxFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MetaTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Tên không dấu và dấu -:", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.TextBoxFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
         </div>
@@ -77,7 +77,7 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PostImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Ảnh đại diện:", htmlAttributes: new { @class = "control-label col-md-2" })
             
                 @Html.TextBoxFor(model => model.PostImage, new { htmlAttributes = new { @class = "form-control" , @id = "txtImage"}, id="txtImage" })
                 <a id="btnSelectImage" href="#">Chọn ảnh</a>
@@ -87,22 +87,27 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })   
+            @Html.Label("Nội dung:", htmlAttributes: new { @class = "control-label col-md-2" })   
                 @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" }, id ="txtContent"})
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
          
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
-
+            @Html.Label("Giới thiệu:", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.TextAreaFor(model => model.Published, new { htmlAttributes = new { @class = "form-control" }, id ="txtPublished"})
             @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
 
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Số lượng đọc:", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.CountRead, new { htmlAttributes = new { @class = "form-control" }, placeholder = "Số lượng đọc ảo" })
+            @Html.ValidationMessageFor(model => model.CountRead, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Trạng thái:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
             
                     @Html.CheckBoxFor(model => model.Status)

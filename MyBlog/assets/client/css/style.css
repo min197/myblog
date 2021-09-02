@@ -1,9 +1,10 @@
-﻿/*--Author: W3layouts
+/*--Author: W3layouts
 Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 /*-- reset code --*/
+
 body{
 	padding:0;
 	margin:0;
@@ -770,31 +771,17 @@ figure.effect-duke2:hover p {
 /*-- /portfolio section --*/
 /*-- footer section --*/
 section.footer {
-    background: url('../images/new-img-footer.jpg');
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
-    padding: 100px 0;
+	background:url(../images/footer.jpg);
+	background-position:center;
+	background-attachment:fixed;
+	background-repeat:no repeat;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	-ms-background-size:cover;
+	padding:100px 0;
 }
-
-section.footer-new {
-    background: url('../images/new-img-footer.jpg');
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
-    padding: 100px 0;
-}
-
 section.footer h3 {
 	color:#fff;
 	font-size:30px;
@@ -1123,7 +1110,7 @@ ul.social-icons3 {
 ul.social-icons3 li {
 	display:inline;
 }
-ul.social-icons3 li a i.fa.fa-facebook {
+/*ul.social-icons3 li a i.fa.fa-facebook {
 	background-color:#3b5998;
 	width:40px;
 	height:40px;
@@ -1183,49 +1170,6 @@ ul.social-icons3 li a i.fa.fa-linkedin {
 	-o-transition:0.5s all;
 	-ms-transition:0.5s all;
 }
-
-ul.social-icons3 li a i.fa.fa-instagram-new {
-	background-color:#e68523;
-	width:40px;
-	height:40px;
-	border-radius:50%;
-	-webkit-border-radius:50%;
-	-moz-border-radius:50%;
-	-o-border-radius:50%;
-	-ms-border-radius:50%;
-	font-size:19px;
-	color:#fff;
-	line-height:40px;
-	text-align: center;
-    vertical-align: middle;
-	 transition:0.5s all;
-	-webkit-transition:0.5s all;
-	-moz-transition:0.5s all;
-	-o-transition:0.5s all;
-	-ms-transition:0.5s all;
-}
-}
-
-ul.social-icons3 li a i.fa.fa-youtube-new {
-	background-color:#dc4e41;
-	width:40px;
-	height:40px;
-	border-radius:50%;
-	-webkit-border-radius:50%;
-	-moz-border-radius:50%;
-	-o-border-radius:50%;
-	-ms-border-radius:50%;
-	font-size:16px;
-	color:#fff;
-	line-height:40px;
-	text-align: center;
-    vertical-align: middle;
-	 transition:0.5s all;
-	-webkit-transition:0.5s all;
-	-moz-transition:0.5s all;
-	-o-transition:0.5s all;
-	-ms-transition:0.5s all;
-}
 ul.social-icons3 li a i.fa.fa-google-plus {
 	background-color:#dc4e41;
 	width:40px;
@@ -1245,19 +1189,12 @@ ul.social-icons3 li a i.fa.fa-google-plus {
 	-moz-transition:0.5s all;
 	-o-transition:0.5s all;
 	-ms-transition:0.5s all;
-}
+}*/
 ul.social-icons3 li a i.fa.fa-facebook:hover {
 	background-color:#002573;
 }
 ul.social-icons3 li a i.fa.fa-twitter:hover {
 	background-color:#004A82;
-}
-
-ul.social-icons3 li a i.fa.fa-youtube-new:hover {
-	background-color:#8A0B00;
-}
-ul.social-icons3 li a i.fa.fa-instagram-new:hover {
-	background-color:#BB5E00;
 }
 ul.social-icons3 li a i.fa.fa-linkedin:hover { 
 	background-color:#BB5E00;
@@ -1432,7 +1369,6 @@ section.blog-w3ls a.btn.btn-primary:hover {
     background-color: #CC5A5A;
     border: 1px solid #653C3C;
 }
-
 .pager .next>a, .pager .next>span {
     float: right;
 	font-size: 18px;
@@ -1628,7 +1564,7 @@ section.contact-us iframe.googlemaps {
 section.contact-us {
     padding-bottom: 50px;
 }
-input#name , input#phone,input#email , textarea#message {
+input#name , input#phone,input#email , textarea#message{
 	color:#000;
 	border-radius: 0px;
 	margin-bottom:10px;
@@ -1637,6 +1573,7 @@ input#name , input#phone,input#email , textarea#message {
 	font-weight:normal;
 	border:1px solid #000;
 }
+
 input#name , input#email  ,input#phone{
 	height:55px;	
 }
@@ -2814,6 +2751,9 @@ textarea#message {
 }
 }
 /*-- /RESPONSIVE DESIGN --*/
+
+
+
 
 
 

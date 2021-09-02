@@ -1,0 +1,104 @@
+﻿@model PagedList.IPagedList<Model.EF.Feedback>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Manage Feedback";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+
+@section header{
+    Danh sách Feedback
+}
+
+@section jsFooter {
+
+<script src="~/assets/admin/js/bootstrap.min.js"></script>
+<script src="~/assets/admin/js/plugins/jquery/bootbox.min.js"></script>
+<script src="~/assets/admin/js/plugins/jquery/mustache.min.js"></script>
+<script src="~/assets/admin/js/plugins/jquery/jquery.twbsPagination.min.js"></script>
+<script src="~/assets/admin/js/plugins/jquery/jquery.validate.min.js"></script>
+    <script src="~/assets/admin/js/controller/feedbackController.js"></script>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @using (Html.BeginForm("Index", "Feedback", FormMethod.Get))
+                {
+                    <div class="row form-group">
+                        <div class="col-lg-12">
+                            <div class="col-md-4">
+                                <input type="text" value="@ViewBag.SearchString" class="form-control" name="searchString" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn-success">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Số ĐT</th>
+                                <th>Tin nhắn</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Trả lời</th>
+                                <th>Tác vụ</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Số ĐT</th>
+                                <th>Tin nhắn</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Trả lời</th>
+                                <th>Tác vụ</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.ID">
+                                    <td>@item.ID</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.Message</td>
+                                    <td>@item.CreatedDate</td>
+                                    <td>@(item.Status ? "Đã trả lời" : "Chưa trả lời")</td>
+                                    <td><a href="#" class="btn-block" data-id="@item.ID">Trả lời</a> </td>
+                                    <td>
+                                        @Ajax.ActionLink("Delete", "Delete", new { @id = @item.ID }, new AjaxOptions
+                                   {
+                                       Confirm = "Xác nhận muốn xóa?",
+                                       OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                       HttpMethod = "Delete"
+                                   })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@RenderPage("_ModalRepFeedback.cshtml")

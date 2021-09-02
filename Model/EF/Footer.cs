@@ -10,13 +10,16 @@
     public partial class Footer
     {
 
+
+        public int ID { get; set; }
+
         [StringLength(50)]
-        public string ID { get; set; }
+        public string Name { get; set; }
 
         [Column(TypeName = "ntext")]
         public string Content { get; set; }
 
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
 
 
     }

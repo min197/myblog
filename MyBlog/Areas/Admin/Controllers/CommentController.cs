@@ -11,7 +11,7 @@ namespace MyBlog.Areas.Admin.Controllers
     public class CommentController : BaseController
     {
         // GET: Admin/Comment
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10) // Phương thức index lấy ra trang, dựa theo biến searchString truyền vào
         {
             var model = new CommentDao().ListAllCommentBySearchAndSize(searchString, page, pageSize);
             ViewBag.SearchString = searchString;
@@ -33,20 +33,21 @@ namespace MyBlog.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-
                 var dao = new CommentDao(); // Tạo biến dao ánh xạ đến tầng dao thao tác với CSDL
                 var result = dao.Update(cmt, LoginController.userLogin);  // tạo biến lưu lại giá trị sau khi thay đổi thông tin
                 if (result)  // Kiểm tra chỉnh sửa thành công
                 {
+                    // Chỉnh sửa số lượng commnent
+                    var countComment = new PostDao().coutComment(cmt.Status, cmt.PostID);
 
-                    TempData["Message"] = "Comment update successfully"; // Trả về thông báo update thành công
+                    TempData["Message"] = "Bình luận cập nhật thành công"; // Trả về thông báo update thành công
                     return RedirectToAction("Index", "Comment"); // Trả về một Controller Post với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorUpdate"] = "Update comment unsuccessfully";
-                    ModelState.AddModelError("", "Update Comment unsuccessfully!");  // Trả về một thông báo lỗi
+                    TempData["ErrorUpdate"] = "Cập nhật bình luận thất bại";
+                    ModelState.AddModelError("", "Cập nhật bình luận thất bại");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
             }
@@ -66,7 +67,13 @@ namespace MyBlog.Areas.Admin.Controllers
         public JsonResult ChangeStatus(long id)
         {
 
+           
             var result = new CommentDao().ChangeStatus(id); // tạo biến result thay đổi trạng thái của đối tượng
+
+            // Chỉnh sửa số lượng commnent
+            var cmt = new CommentDao().GetById(id);
+            var countComment = new PostDao().coutComment(cmt.Status, cmt.PostID);
+
             return Json(new
             {
                 status = result // Trả về 1 JSON với trạng thái tương ứng

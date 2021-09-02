@@ -24,6 +24,8 @@
         [StringLength(50)]
         public string Website { get; set; }
 
+        public DateTime CreatedDate { get; set; }
+
         public bool AcceptContact { get; set; }
 
         public bool Status { get; set; }

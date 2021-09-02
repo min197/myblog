@@ -12,7 +12,11 @@
     <link href="/assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
+
+ 
     <link href="/assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/AdminMyStyle.css" rel="stylesheet" />
+    
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -67,6 +71,7 @@
                         <a class="collapse-item " href="/Admin/Post/Create">Create Post</a>
                         <h6 class="collapse-header">Comment Manage:</h6>
                         <a class="collapse-item " href="/Admin/Comment/Index">Table Comment</a>
+                        <a class="collapse-item " href="/Admin/UserComment/Index">Table UserComment</a>
                         <h6 class="collapse-header">Relation Post-Tag Manage:</h6>
                         <a class="collapse-item " href="/Admin/PostTag/Index">Table Post-Tag</a>
                         <a class="collapse-item " href="/Admin/postTag/Create">Create Post-Tag</a>
@@ -82,8 +87,18 @@
                         <h6 class="collapse-header">Slide Manage:</h6>
                         <a class="collapse-item " href="/Admin/Slide/Index">Table Slide</a>
                         <a class="collapse-item " href="/Admin/Slide/Create">Create Slide</a>
+                        <h6 class="collapse-header">Feedback Manage:</h6>
+                        <a class="collapse-item" href="/Admin/Feedback/Index">Feedback Table</a>
+                        <h6 class="collapse-header">Contact Manage:</h6>
+                        <a class="collapse-item" href="/Admin/Contact/Index">Contact Table</a>
+                        <a class="collapse-item" href="/Admin/Contact/Create">Create Contact</a>
+                        <h6 class="collapse-header">footer Manage:</h6>
+                        <a class="collapse-item" href="/Admin/Footer/Index">Footer Table</a>
+                        <a class="collapse-item" href="/Admin/Footer/Create">Create Footer</a>
+
                         <h6 class="collapse-header">Orther Manage:</h6>
                         <a class="collapse-item" href="/Admin/User/ErrorPage">404 Page</a>
+
                         <a class="collapse-item " href="/">Customer Page</a>
                         
                     </div>
@@ -147,12 +162,13 @@
     <!-- Bootstrap core JavaScript-->
 
     <script src="/assets/admin/vendor/jquery/jquery.min.js"></script>
-
+    
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
     <script src="/assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
+
     <script src="/assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="/assets/admin/js/plugins/ckeditor/ckeditor.js"></script>
     <script src="/assets/admin/js/plugins/ckfinder/ckfinder.js"></script>

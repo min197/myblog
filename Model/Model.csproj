@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="Dao\CategoryDao.cs" />
     <Compile Include="Dao\CommentDao.cs" />
+    <Compile Include="Dao\ContactDao.cs" />
+    <Compile Include="Dao\FeedbackDao.cs" />
     <Compile Include="Dao\FooterDao.cs" />
     <Compile Include="Dao\MenuDao.cs" />
     <Compile Include="Dao\PostCategoryDao.cs" />
@@ -68,8 +70,11 @@
     <Compile Include="Dao\PostTagDao.cs" />
     <Compile Include="Dao\SlideDao.cs" />
     <Compile Include="Dao\TagDao.cs" />
+    <Compile Include="Dao\UserCommentDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="EF\Category.cs" />
+    <Compile Include="EF\Contact.cs" />
+    <Compile Include="EF\Feedback.cs" />
     <Compile Include="EF\Footer.cs" />
     <Compile Include="EF\Menu.cs" />
     <Compile Include="EF\MyBlogDbContext.cs" />
@@ -81,7 +86,9 @@
     <Compile Include="EF\Tag.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="EF\UserComment.cs" />
+    <Compile Include="ModelView\Comment.cs" />
     <Compile Include="ModelView\CommentAndUser.cs" />
+    <Compile Include="ModelView\ReplyComment.cs" />
     <Compile Include="ModelView\TagAndCountPost.cs" />
     <Compile Include="ModelView\PostTagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

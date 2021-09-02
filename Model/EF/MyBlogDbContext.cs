@@ -23,6 +23,8 @@ namespace Model.EF
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<PostTag> PostTags { get; set; }
         public virtual DbSet<UserComment> UserComments { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -201,10 +203,18 @@ namespace Model.EF
               .IsUnicode(true);
 
             modelBuilder.Entity<Footer>()
-             .Property(e => e.ID)
+             .Property(e => e.Name)
              .IsUnicode(false);
 
             modelBuilder.Entity<Footer>()
+           .Property(e => e.Content)
+           .IsUnicode(true);
+
+            modelBuilder.Entity<Contact>()
+          .Property(e => e.Name)
+          .IsUnicode(true);
+
+            modelBuilder.Entity<Contact>()
            .Property(e => e.Content)
            .IsUnicode(true);
 
@@ -245,6 +255,23 @@ namespace Model.EF
             modelBuilder.Entity<UserComment>()
                .Property(e => e.AvatarImage)
                .IsUnicode(true);
+
+            modelBuilder.Entity<Feedback>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Feedback>()
+                .Property(e => e.Phone)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Feedback>()
+                .Property(e => e.Name)
+                .IsUnicode(true);
+
+            modelBuilder.Entity<Feedback>()
+               .Property(e => e.Message)
+               .IsUnicode(true);
+        
         }
 
         

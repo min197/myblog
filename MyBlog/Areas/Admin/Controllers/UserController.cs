@@ -19,17 +19,17 @@ namespace MyBlog.Areas.Admin.Controllers
             ViewBag.SearchString = searchString;
             return View(model); // Trả về một view truyền vào biến
         }
-
+        //Phương thức đăng xuất
         public ActionResult Logout()
         {
             Session[CommonConstants.USER_SESSION] = null;
             return Redirect("/Admin/Login");
         }
+
         public ActionResult ErrorPage()
         {
             return View();
         }
-
 
         public ActionResult Edit(long id)
         {

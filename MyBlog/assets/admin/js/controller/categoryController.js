@@ -14,7 +14,7 @@
                 dataType: "json", // chọn kiểu cho ajax
                 type: "POST",
                 success: function (response) {
-                    alert("Status category have been changed!");
+                    alert("Trạng thái của danh mục đã thay đổi!");
                     if (response.status == true) {
                         btn.text('Blocked');
                     }
@@ -23,7 +23,7 @@
                     }
                 },
                 error: function (ex) {
-                    alert("Cannot change status");
+                    alert("Không thể thay đổi trạng thái");
                 }
 
             })
@@ -37,7 +37,7 @@ var cat2 = {
         cat2.registerEvents(); // Tạo một sự kiện
     },
     registerEvents: function () {
-        $('.btn-default').off('click').on('click', function (e) {  //Tạo kịch bản gọi sự kiện, chỉ đến nút ấn, on, off 
+        $('.btn-success').off('click').on('click', function (e) {  //Tạo kịch bản gọi sự kiện, chỉ đến nút ấn, on, off 
             e.preventDefault();    // Tạo một sự kiện mặc định
             var btn = $(this)
             var id = $(this).data("id");  // tạo biến id lưu lại giá trị của id
@@ -48,16 +48,16 @@ var cat2 = {
                 dataType: "json", // chọn kiểu cho ajax
                 type: "POST",
                 success: function (response) {
-                    alert("ShowOnHome have been changed!");
+                    alert("Trạng thái hiển thị đã thay đổi");
                     if (response.status == true) {
-                        btn.text('Blocked');
+                        btn.text('Hiển thị');
                     }
                     else {
-                        btn.text('Actived');
+                        btn.text('Ẩn');
                     }
                 },
                 error: function (ex) {
-                    alert("Cannot change ShowOnHome");
+                    alert("Không thể thay đổi trạng thái");
                 }
 
             })

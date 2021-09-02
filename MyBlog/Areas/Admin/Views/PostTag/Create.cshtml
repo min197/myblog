@@ -7,31 +7,29 @@
     var listTag = (List<Model.EF.Tag>)ViewBag.ListTag;
 }
 
-<h2>Create PostTag</h2>
-
 @using (Html.BeginForm("Create", "PostTag", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>PostTag</h4>
+        <h4>Tạo liên kết bài viết - tag</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PostID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("ID blog:", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.DropDownListFor(model => model.PostID, new SelectList(listPost, "ID", "Title"), htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TagID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("ID tag:", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.DropDownListFor(model => model.TagID, new SelectList(listTag, "ID", "Title"), htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.TagID, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Trạng thái", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.Status)

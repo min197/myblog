@@ -19,7 +19,8 @@ namespace MyBlog.Areas.Admin.Controllers
             return View(model);
         }
 
-        public ActionResult Edit(long id)
+        [HttpGet]
+        public ActionResult Edit(long id)   // Chỉnh sửa post với id truyền vào
         {
             ViewBag.ListPost = new PostDao().ListPost();
             ViewBag.ListCategoryPost = new CategoryDao().ListCategoryPost();
@@ -46,13 +47,13 @@ namespace MyBlog.Areas.Admin.Controllers
                 if (result)  // Kiểm tra chỉnh sửa thành công
                 {
                    
-                    TempData["Message"] = "Post " + post.Title + " update successfully"; // Trả về thông báo update thành công
+                    TempData["Message"] = "Post " + post.Title + " cập nhật thành công"; // Trả về thông báo update thành công
                     return RedirectToAction("Index", "Post"); // Trả về một Controller Post với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorUpdate"] = "Update Post unsuccessfully";
+                    TempData["ErrorUpdate"] = "Cập nhật post thất bại";
                     ModelState.AddModelError("", "Update Post unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
@@ -81,6 +82,8 @@ namespace MyBlog.Areas.Admin.Controllers
             {
                 
                 var post = new PostDao();
+
+                //Thêm thông tin cho Post mới
                 newPost.AuthorID = LoginController.userId;
                 newPost.AuthorName = post.GetFullNameAuthorById(LoginController.userId);    // Gán cho đối tượng đang đăng nhập 
                 newPost.CreatedDate = DateTime.Now;
@@ -88,6 +91,7 @@ namespace MyBlog.Areas.Admin.Controllers
                 newPost.ModifiedBy = LoginController.userLogin;
                 newPost.ModifiedDate = DateTime.Now;
                 newPost.CountRead = 0;
+                newPost.CountComment = 0;
                 newPost.HistoryModified = "Create by " + LoginController.userLogin + " " + DateTime.Now.ToString();
                 if(newPost.Status == true)
                 {
@@ -97,13 +101,13 @@ namespace MyBlog.Areas.Admin.Controllers
                 long id = result.Insert(newPost); // Tạo một biến lưu trữ dữ liệu trả về kiểu ID sau khi thực hiện hàm thêm bản ghi
                 if (id > 0)  // Kiểm tra id > 0 <=> đã thêm vào thành công
                 {
-                    TempData["Message"] = "Post " + newPost.Title + " created successfully"; // Trả về thông báo tạo Danh mục thành công
+                    TempData["Message"] = "Post " + newPost.Title + " được tạo thành công"; // Trả về thông báo tạo Danh mục thành công
                     return RedirectToAction("Index", "Post"); // Trả về một Controller Post với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorCreate"] = "Create new post unsuccessfully";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
+                    TempData["ErrorCreate"] = "Tạo mới post thất bại";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
                     ModelState.AddModelError("", "Add new post unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }

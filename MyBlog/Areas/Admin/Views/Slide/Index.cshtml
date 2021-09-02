@@ -40,38 +40,41 @@
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Image</th>
-                                <th>DisplayOrder</th>
-                                <th>Link</th>
-                                <th>Descriptions</th>
-                                <th>Created By</th>
-                                <th>Created Date</th>
-                                <th>Modified By</th>
-                                <th>Modified Date</th>
-                                <th>Status</th>
-                                <th>Manager</th>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Ảnh</th>
+                                <th>Thứ tự hiển thị</th>
+                                <th>Đường dẫn</th>
+                                <th>Giới thiệu</th>
+                                <th>Người tạo</th>
+                                <th>Ngày tạo</th>
+                                <th>Người chỉnh sửa</th>
+                                <th>Ngày chỉnh sửa</th>
+                                <th>Trạng thái</th>
+                                <th>Tác vụ</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Title</th>
-                                <th>Image</th>
-                                <th>DisplayOrder</th>
-                                <th>Link</th>
-                                <th>Descriptions</th>
-                                <th>Created By</th>
-                                <th>Created Date</th>
-                                <th>Modified By</th>
-                                <th>Modified Date</th>
-                                <th>Status</th>
-                                <th>Manager</th>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Ảnh</th>
+                                <th>Thứ tự hiển thị</th>
+                                <th>Đường dẫn</th>
+                                <th>Giới thiệu</th>
+                                <th>Người tạo</th>
+                                <th>Ngày tạo</th>
+                                <th>Người chỉnh sửa</th>
+                                <th>Ngày chỉnh sửa</th>
+                                <th>Trạng thái</th>
+                                <th>Tác vụ</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr id="row_@item.ID">
+                                    <td>@item.ID</td>
                                     <td>@item.Title</td>
                                     <td>@item.Image</td>
                                     <td>@item.DisplayOrder</td>
@@ -86,7 +89,7 @@
                                         <a href="/Admin/Slide/Edit/@item.ID">Edit</a>
                                         @Ajax.ActionLink("Delete", "Delete", new { @id = @item.ID }, new AjaxOptions
                                    {
-                                       Confirm = "Do you really want to delete?",
+                                       Confirm = "Xác nhận xóa?",
                                        OnComplete = "$('#row_" + @item.ID + "').remove()",
                                        HttpMethod = "Delete"
                                    })

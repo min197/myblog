@@ -40,13 +40,13 @@ namespace MyBlog.Areas.Admin.Controllers
                 if (result)  // Kiểm tra chỉnh sửa thành công
                 {
 
-                    TempData["Message"] = "Tag " + tag.Title + " update successfully"; // Trả về thông báo update thành công
-                    return RedirectToAction("Index", "Tag"); // Trả về một Controller Post với phương thức Index
+                    TempData["Message"] = "Tag " + tag.Title + " cập nhật thành công"; // Trả về thông báo update thành công
+                    return RedirectToAction("Index", "Tag"); // Trả về một Controller Tag với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorUpdate"] = "Update tag unsuccessfully";
+                    TempData["ErrorUpdate"] = "Cập nhật tag thất bại.";
                     ModelState.AddModelError("", "Update tag unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
@@ -77,13 +77,13 @@ namespace MyBlog.Areas.Admin.Controllers
                 long id = result.Insert(tag); // Tạo một biến lưu trữ dữ liệu trả về kiểu ID sau khi thực hiện hàm thêm bản ghi
                 if (id > 0)  // Kiểm tra id > 0 <=> đã thêm vào thành công
                 {
-                    TempData["Message"] = "Tag " + tag.Title + " created successfully"; // Trả về thông báo tạo Danh mục thành công
+                    TempData["Message"] = "Tag " + tag.Title + " đã được tạo thành công."; // Trả về thông báo tạo Danh mục thành công
                     return RedirectToAction("Index", "Tag"); // Trả về một Controller Tag với phương thức Index
 
                 }
                 else
                 {
-                    TempData["ErrorCreate"] = "Create new tag unsuccessfully";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
+                    TempData["ErrorCreate"] = "Tạo mới tag thất bại";  // tạo một biến lưu trữ thông tin lỗi và gửi đến View 
                     ModelState.AddModelError("", "Add new tag unsuccessfully!");  // Trả về một thông báo lỗi
                     return View("Index");
                 }
